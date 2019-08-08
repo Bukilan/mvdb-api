@@ -25,6 +25,7 @@ let ListSchema = new mongoose.Schema({
             backdrop_path: String,
             adult: Boolean,
             overview: String,
+            release_date: String
         }
     ]
 });

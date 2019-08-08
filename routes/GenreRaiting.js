@@ -32,6 +32,9 @@ router.get('/genre_raiting', function(req, res) {
 
     store.set("flag", true);
     store.set("genre", genre);
+    store.set('suka', 1);
+
+    console.log(store.get("genre"));
 
     store.set("total_films", 0);
 

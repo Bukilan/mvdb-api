@@ -15,6 +15,8 @@ router.get('/get_genre_raiting', (req, res) => {
     let genre = req.query.genre;
     genre = genre.toLowerCase();
 
+    console.log(`genre here : ${genre}, processing now ${store.get("flag")}`);
+
     getMovieListFromMongo(genre)
         .then(response => {
             if (response !== null &&  store.get("genre") !== genre) {

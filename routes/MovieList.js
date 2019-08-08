@@ -12,6 +12,8 @@ const {collectResult} = require("../services/movielist-sevice");
 router.get('/movie_list', (req, res) => {
     let sort, year, genre, page, amount, str_genre, str_year, arr;
 
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
     page = req.query.page;
     amount = req.query.amount;
     year = req.query.year;
