@@ -19,69 +19,69 @@ module.exports.getMovieListFromApi = (genre, page) => {
 
     switch (genre.toLowerCase()) {
         case "action":
-            genre = 28
+            genre = 28;
             break;
         case "adventure":
-            genre = 12
+            genre = 12;
             break;
         case "animation":
-            genre = 16
+            genre = 16;
             break;
         case "comedy":
-            genre = 35
+            genre = 35;
             break;
         case "crime":
-            genre = 80
+            genre = 80;
             break;
         case "documentary":
-            genre = 99
+            genre = 99;
             break;
         case "drama":
-            genre = 18
+            genre = 18;
             break;
         case "family":
-            genre = 10751
+            genre = 10751;
             break;
         case "fantasy":
-            genre = 14
+            genre = 14;
             break;
         case "horror":
-            genre = 27
+            genre = 27;
             break;
         case "history":
-            genre = 36
+            genre = 36;
             break;
         case "music":
-            genre = 10402
+            genre = 10402;
             break;
         case "mystery":
-            genre = 9648
+            genre = 9648;
             break;
         case "romance":
-            genre = 10749
+            genre = 10749;
             break;
         case "science fiction":
-            genre = 878
+            genre = 878;
             break;
         case "tv movie":
-            genre = 10770
+            genre = 10770;
             break;
         case "thriller":
-            genre = 53
+            genre = 53;
             break;
         case "war":
-            genre = 10752
+            genre = 10752;
             break;
         case "western":
-            genre = 37
+            genre = 37;
             break;
         default:
-            genre = ''
+            genre = '';
             break;
     }
 
     return axios
         .get(`https://api.themoviedb.org/3/discover/movie?api_key=56d793d6cea47e6ab2101f3386c7b8b6&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genre}`)
-}
+};
 
 

@@ -1,13 +1,10 @@
 let express = require('express');
 
 let listRoute = require('./routes/MovieList');
-let personRoute = require('./routes/person');
-let customerRoute = require('./routes/customer');
 let DetailsRoute = require('./routes/MovieDetails');
 let GenreRoute = require('./routes/GenreRaiting');
 let getGenreRoute = require('./routes/getGenerRaiting');
 
-let path = require('path');
 let bodyParser = require('body-parser');
 
 
@@ -27,8 +24,6 @@ app.use(listRoute);
 app.use(DetailsRoute);
 app.use(GenreRoute);
 app.use(getGenreRoute);
-app.use(personRoute);
-app.use(customerRoute);
 app.use(express.static('public'));
 
 app.use((req, res, next) => {

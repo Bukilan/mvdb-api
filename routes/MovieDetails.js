@@ -24,7 +24,7 @@ router.get('/movie_details', (req, res) => {
                         let result = doc.data;
                         result.my_id = req.originalUrl;
 
-                        console.log(result)
+                        console.log(result);
 
                         postMovieListToMongo(result);
 
@@ -34,6 +34,6 @@ router.get('/movie_details', (req, res) => {
             }
         })
         .catch(err => res.status(500).send(err))
-})
+});
 
-module.exports = router
+module.exports = router;

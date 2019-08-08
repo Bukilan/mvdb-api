@@ -1,5 +1,5 @@
-let express = require('express')
-let router = express.Router()
+let express = require('express');
+let router = express.Router();
 
 const {getMovieListFromApi} = require("../services/movielist-sevice");
 const {getMovieListFromMongo} = require("../services/movielist-sevice");
@@ -9,10 +9,6 @@ const {collectResult} = require("../services/movielist-sevice");
 
 
 
-//TODO: проверить
-
-
-// GET
 router.get('/movie_list', (req, res) => {
     let sort, year, genre, page, amount, str_genre, str_year, arr;
 
@@ -21,24 +17,23 @@ router.get('/movie_list', (req, res) => {
     year = req.query.year;
 
     if (amount > 600 || page * amount > 20000){
-        return res.status(501).send('Простите, AMOUNT должен быть меньше или равен 600, PAGE * AMOUNT меньше ли равен 20000')
+        return res.status(501).send('Sorry, AMOUNT have to be less or equal to 600, PAGE * AMOUNT less or equal to 20000')
     }
-
 
     if (page === undefined){page = 1}
     if (amount === undefined){amount = 20}
 
     sort = req.query.sort;
-    if (sort === undefined) {sort = 'popularity.desc'}
+    if (sort === undefined || sort === '') {sort = 'popularity.desc'}
 
     genre = req.query.genre;
-    if (genre === undefined){
-        genre = ''
+    if (genre === undefined || genre === ''){
+        genre = '';
         str_genre = ''
     } else str_genre = `&with_genres=${genre}`;
 
-    if (year === undefined){
-        year = ''
+    if (year === undefined || year < 1874 || year === ''){
+        year = '';
         str_year = ''
     } else str_year = `&year=${year}`;
 
@@ -141,6 +136,6 @@ router.get('/movie_list', (req, res) => {
     }
 
 
-})
+});
 
 module.exports = router;

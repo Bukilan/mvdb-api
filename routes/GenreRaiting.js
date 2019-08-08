@@ -1,6 +1,6 @@
 let express = require('express');
 let router = express.Router();
-let store = require('store')
+let store = require('store');
 let sleep = require('system-sleep');
 
 const {getMovieListFromApi} = require("../services/GenreRaiting-servise");
@@ -10,21 +10,21 @@ const {postMovieListToMongo} = require("../services/GenreRaiting-servise");
 
 router.get('/genre_raiting', function(req, res) {
 
-    if( store.get("flag") === true){
-        return res.send(`Запрос по жанру ${req.query.genre} уже выполняется`)
+    if( store.get("flag") == true){
+        return res.send(` Request ${req.query.genre} already in process`)
     }
 
     if (req.query.genre === undefined) {
-        return res.send(`Введите, пожалуйста, жанр`)
+        return res.send(`Please, enter genre`)
     }
 
     let genre = req.query.genre;
     genre = genre.toLowerCase();
 
     if( genre === 'action' || genre === 'adventure' || genre === 'animation' || genre === 'comedy' || genre === 'crime' || genre === 'documentary' || genre === 'drama' || genre === 'family' || genre === 'fantasy' || genre === 'horror' || genre === 'history' || genre === 'music' || genre === 'mystery' || genre === 'romance' || genre === 'science fiction' || genre === 'tv movie' || genre === 'thriller' || genre === 'war' || genre === 'western'){
-        res.send(`запрос по жанру: ${genre} начался. Отправьте GET запрос на адрес /get_genre_raiting с указанием параметра жанра, чтобы узнать процент выполнения. По окончанию подсчета, результат окажется в базе, отправьте запрос на /get_genre_raiting еще раз, чтобы узнать результат`)
+        res.send(`Request on genre: ${genre} started. Send GET request on /get_genre_raiting with param @genre to get progress percent. On receive result, result will be saved in DB, send /get_genre_raiting request one more time to display results`)
     } else {
-        return res.send(`Неверный жанр`)
+        return res.send(`Incorrect genre`)
     }
 
 
@@ -69,7 +69,7 @@ router.get('/genre_raiting', function(req, res) {
                 console.log(total_films, total_pages);
 
                 for (let j = 1; j <= limiter; j++) {
-                    console.log(`началась новая итерация № ${j}`);
+                    console.log(`Iteration № ${j}`);
 
                     sleep(12000);
 
@@ -93,7 +93,7 @@ router.get('/genre_raiting', function(req, res) {
                                     store.set("rating_counter", tmp);
 
                                     if (page_counter == total_pages) {
-                                        console.log('done')
+                                        console.log('done');
                                         let obj = {
                                             genre: genre,
                                             rating: Math.round(store.get("rating_counter")) / Math.round(store.get("total_films"))
@@ -126,4 +126,4 @@ router.get('/genre_raiting', function(req, res) {
 
 
 
-module.exports = router
+module.exports = router;
