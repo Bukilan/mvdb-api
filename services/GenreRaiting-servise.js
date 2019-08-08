@@ -14,6 +14,10 @@ module.exports.postMovieListToMongo = (data) => {
         .catch(err => console.error(err))
 };
 
+module.exports.deleteMovieListFromMongo = (genre) => {
+    return Genre.findOneAndRemove({genre: genre})
+};
+
 
 module.exports.getMovieListFromApi = (genre, page) => {
 

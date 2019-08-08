@@ -5,12 +5,12 @@ let sleep = require('system-sleep');
 
 const {getMovieListFromApi} = require("../services/GenreRaiting-servise");
 const {postMovieListToMongo} = require("../services/GenreRaiting-servise");
-
+const {deleteMovieListFromMongo} = require("../services/GenreRaiting-servise");
 
 
 router.get('/genre_raiting', function(req, res) {
 
-    if( store.get("flag") == true){
+    if( store.get("flag") === 1){
         return res.send(` Request ${req.query.genre} already in process`)
     }
 
@@ -30,11 +30,7 @@ router.get('/genre_raiting', function(req, res) {
 
     store.clearAll();
 
-    store.set("flag", true);
-    store.set("genre", genre);
-    store.set('suka', 1);
-
-    console.log(store.get("genre"));
+    store.set("flag", 0);
 
     store.set("total_films", 0);
 
@@ -51,6 +47,10 @@ router.get('/genre_raiting', function(req, res) {
     let current_limit = 1;
 
 
+
+    deleteMovieListFromMongo(genre)
+        .then(res => console.log(`last result from DB was deleted ${res}`))
+        .catch(err => console.log(`no data in Db detected ${err}`));
 
     getMovieListFromApi(genre,1)
             .then((response)=> {
@@ -70,6 +70,9 @@ router.get('/genre_raiting', function(req, res) {
                 store.set("limit", limiter);
 
                 console.log(total_films, total_pages);
+
+                store.set("flag", 1);
+                console.log(store.get("flag"))
 
                 for (let j = 1; j <= limiter; j++) {
                     console.log(`Iteration № ${j}`);
@@ -102,7 +105,7 @@ router.get('/genre_raiting', function(req, res) {
                                             rating: Math.round(store.get("rating_counter")) / Math.round(store.get("total_films"))
                                         };
                                         postMovieListToMongo(obj);
-                                        store.set("flag", false);
+                                        store.set("flag", 0);
                                     }
 
                                     if (i === 30) {

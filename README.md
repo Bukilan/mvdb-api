@@ -87,7 +87,7 @@ Example: https://mvdb-api.herokuapp.com/movie_details?movie_id=420818
 Example: &genre=Action
 ```
 
-#### 2. Store calculated rating in DB, will be rewrite by result of same request.
+#### 2. Store calculated rating in DB. If this genre rating is already exits in db, remove elder result from DB on new request.
 
 #### 3. Returns message that calculated started
 ```
@@ -98,10 +98,11 @@ Example: https://mvdb-api.herokuapp.com/genre_raiting?genre=music
 ###### 
 
 #### 1. Supported params: 
-##### ```&genre```: include movies with this genre
+##### ```&genre```: display result of calculating by this genre.
 ```
 Example: &genre=Action
 ```
+#### NO PARAMS: Display progress percent, if it was started
 
 #### 2. Display current progress in percent. If rating is in DB, display it. 
 
